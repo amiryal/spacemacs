@@ -50,7 +50,38 @@
 (defun restructuredtext/init-rst ()
   (use-package rst
     :defer t
-    :config (add-hook 'rst-adjust-hook 'rst-toc-update)))
+    :config (add-hook 'rst-adjust-hook 'rst-toc-update)
+    :init
+    (progn
+      (spacemacs/declare-prefix-for-mode 'rst-mode "ma" "adjust sections")
+      (spacemacs/declare-prefix-for-mode 'rst-mode "mr" "region")
+      (spacemacs/declare-prefix-for-mode 'rst-mode "ml" "lists")
+      (spacemacs/declare-prefix-for-mode 'rst-mode "mt" "toc")
+      (spacemacs/declare-prefix-for-mode 'rst-mode "mc" "compile")
+      (spacemacs/set-leader-keys-for-major-mode 'rst-mode
+        "=" 'rst-adjust
+        "h" 'rst-mark-section
+        "k" 'rst-backward-section
+        "j" 'rst-forward-section
+        "aa" 'rst-adjust
+        "ad" 'rst-display-hdr-hierarchy
+        "as" 'rst-straighten-sections
+        "rl" 'rst-line-block-region
+        "r TAB" 'rst-shift-region
+        "lb" 'rst-bullet-list-region
+        "le" 'rst-enumerate-region
+        "lc" 'rst-convert-bullets-to-enumeration
+        "ls" 'rst-straighten-bullets-region
+        "li" 'rst-insert-list
+        "tt" 'rst-toc
+        "ti" 'rst-toc-insert
+        "tu" 'rst-toc-update
+        "tj" 'rst-toc-follow-link
+        "cc" 'rst-compile
+        "ca" 'rst-compile-alt-toolset
+        "cx" 'rst-compile-pseudo-region
+        "cp" 'rst-compile-pdf-preview
+        "cs" 'rst-compile-slides-preview))))
 
 (defun restructuredtext/post-init-flyspell ()
   (spell-checking/add-flyspell-hook 'rst-mode-hook)
